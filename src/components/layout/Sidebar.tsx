@@ -38,6 +38,11 @@ const Sidebar = () => {
       collapsedWidth="0"
       style={{
         backgroundColor: "#001529",
+        position: "sticky",
+        top: "0",
+        left: "0",
+        zIndex: 999,
+        height: "100vh",
       }}
       zeroWidthTriggerStyle={{
         position: "absolute",

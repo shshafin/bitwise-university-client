@@ -17,7 +17,7 @@ const MainLayout = () => {
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout>
       {/* Sidebar Section */}
       <Sidebar />
 
@@ -29,8 +29,11 @@ const MainLayout = () => {
             background: "#001529",
             width: "100%",
             display: "flex",
-            justifyContent: "space-between", // Aligning content to the sides
+            justifyContent: "space-between",
             alignItems: "center",
+            position: "sticky",
+            top: "0",
+            zIndex: 1000,
           }}>
           {/* Logout Button */}
           <Button onClick={handleLogout}>Logout</Button>
