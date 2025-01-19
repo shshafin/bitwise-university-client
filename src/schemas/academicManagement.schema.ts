@@ -14,3 +14,7 @@ export const academicManagementSchema = z.object({
     required_error: "Please specify the end month of the academic program.",
   }),
 });
+
+export const academicFacultySchema = z.object({
+  name: z.string().nonempty("Please provide a valid name for the faculty."),
+});

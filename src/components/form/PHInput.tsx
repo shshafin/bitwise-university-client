@@ -14,7 +14,7 @@ const PHInput = ({ type, name, label, placeholder }: TInputProps) => {
     <>
       <Controller
         name={name}
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <Form.Item label={label}>
             <Input
               {...field}
@@ -22,6 +22,11 @@ const PHInput = ({ type, name, label, placeholder }: TInputProps) => {
               placeholder={placeholder}
               id={name}
             />
+            {error && (
+              <div style={{ marginTop: "5px", color: "#f5222d" }}>
+                <small>{error?.message}</small>
+              </div>
+            )}
           </Form.Item>
         )}
       />

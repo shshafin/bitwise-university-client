@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 
 type TPHSelectProps = {
   label: string;
-  options: { value: string; label: string; disabled?: boolean }[];
+  options: { value: string | number; label: string; disabled?: boolean }[]; // Ensure value is passed
   name: string;
 };
 
