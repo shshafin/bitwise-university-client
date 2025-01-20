@@ -1,14 +1,14 @@
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import PHForm from "../../../components/form/PHForm";
 import { Button, Col, Flex } from "antd";
-import PHSelect from "../../../components/form/PHSelect";
-import { semesterNames } from "../../../constants/semesterNames";
-import { monthOptions } from "../../../constants/global";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { academicManagementSchema } from "../../../schemas/academicManagement.schema";
-import { useAddAcademicSemesterMutation } from "../../../redux/features/admin/academicManagement.api";
 import { toast } from "sonner";
-import { TResponse } from "../../../types/global.type";
+import { TResponse } from "../../../../types/global.type";
+import { useAddAcademicSemesterMutation } from "../../../../redux/features/admin/academicManagement.api";
+import { semesterNames } from "../../../../constants/semesterNames";
+import PHForm from "../../../../components/form/PHForm";
+import PHSelect from "../../../../components/form/PHSelect";
+import { academicManagementSchema } from "../../../../schemas/academicManagement.schema";
+import { monthOptions } from "../../../../constants/global";
 
 const currentYear = new Date().getFullYear();
 const yearOptions = [0, 1, 2, 3, 4].map((number) => ({
@@ -33,7 +33,9 @@ const CreateAcademicSemester = () => {
     };
 
     try {
-      const res = (await addAcademicSemester(semesterData)) as TResponse;
+      const res = (await addAcademicSemester(
+        semesterData
+      )) as TResponse<FieldValues>;
 
       if (res?.error) {
         const errorMessage = res?.error?.data?.message || "An error occurred!";
@@ -48,6 +50,10 @@ const CreateAcademicSemester = () => {
   };
   return (
     <div>
+      <h1 style={{ textAlign: "center", marginBottom: "40px" }}>
+        Create Academic Semester
+      </h1>
+
       <Flex
         justify="center"
         align="center">

@@ -1,5 +1,5 @@
 import { Button, Table, TableColumnsType, TableProps } from "antd";
-import { useGetAcademicDepartmentQuery } from "../../../redux/features/admin/academicManagement.api";
+import { useGetAcademicDepartmentQuery } from "../../../../redux/features/admin/academicManagement.api";
 
 export type TTableData = {
   key: string;
@@ -68,6 +68,10 @@ const AcademicDepartment = () => {
 
   return (
     <div>
+      <h1 style={{ textAlign: "center", marginBottom: "40px" }}>
+        Academic Department
+      </h1>
+
       <Table<TTableData>
         columns={columns}
         dataSource={tableData}

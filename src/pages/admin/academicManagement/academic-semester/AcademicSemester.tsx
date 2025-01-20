@@ -1,8 +1,8 @@
 import { Table, TableColumnsType, TableProps } from "antd";
-import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
-import { TAcademicSemester } from "../../../types/academicManagement.type";
 import { useState } from "react";
-import { TQueryParam } from "../../../types";
+import { TAcademicSemester } from "../../../../types/academicManagement.type";
+import { TQueryParam } from "../../../../types";
+import { useGetAllSemestersQuery } from "../../../../redux/features/admin/academicManagement.api";
 
 export type TTableData = Pick<
   TAcademicSemester,
@@ -96,6 +96,9 @@ const AcademicSemester = () => {
   };
   return (
     <div>
+      <h1 style={{ textAlign: "center", marginBottom: "40px" }}>
+        Academic Semester
+      </h1>
       <Table<TTableData>
         columns={columns}
         dataSource={tableData}

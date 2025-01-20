@@ -1,16 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from "@hookform/resolvers/zod";
-import PHForm from "../../../components/form/PHForm";
-import PHInput from "../../../components/form/PHInput";
-import { academicDepartmentSchema } from "../../../schemas/academicManagement.schema";
 import { Button, Col, Flex } from "antd";
-import PHSelect from "../../../components/form/PHSelect";
+import { toast } from "sonner";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import {
   useAddAcademicDepartmentMutation,
   useGetAcademicFacultyQuery,
-} from "../../../redux/features/admin/academicManagement.api";
-import { toast } from "sonner";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+} from "../../../../redux/features/admin/academicManagement.api";
+import PHForm from "../../../../components/form/PHForm";
+import { academicDepartmentSchema } from "../../../../schemas/academicManagement.schema";
+import PHInput from "../../../../components/form/PHInput";
+import PHSelect from "../../../../components/form/PHSelect";
+import { FieldValues, SubmitHandler } from "react-hook-form";
 
 const CreateAcademicDepartment = () => {
   const [addAcademicDepartment] = useAddAcademicDepartmentMutation();
@@ -28,7 +28,7 @@ const CreateAcademicDepartment = () => {
     value: key, // This ensures the selected option sends the faculty ID
   }));
 
-  const onSubmit = async (data: any) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Creating...");
     try {
       const res = await addAcademicDepartment(data);
@@ -64,6 +64,9 @@ const CreateAcademicDepartment = () => {
 
   return (
     <div>
+      <h1 style={{ textAlign: "center", marginBottom: "40px" }}>
+        Create Academic Department
+      </h1>
       <Flex
         justify="center"
         align="center">
