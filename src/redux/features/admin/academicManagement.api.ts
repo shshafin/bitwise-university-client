@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TQueryParam, TResponseRedux } from "../../../types";
 import {
+  TAcademicDepartment,
   TAcademicFaculty,
   TAcademicSemester,
 } from "../../../types/academicManagement.type";
@@ -64,6 +65,28 @@ const academicManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Faculty" as any], // Invalidate "Faculty" tag when this mutation is called
     }),
+    // Fetch all academic faculties with caching support
+    getAcademicDepartment: builder.query({
+      query: () => ({
+        url: "/academic-departments",
+        method: "GET",
+      }),
+      transformResponse: (response: TResponseRedux<TAcademicDepartment[]>) => ({
+        data: response?.data,
+        meta: response?.meta,
+      }),
+      providesTags: ["Department" as any], // Cache the result of this query
+    }),
+
+    // Add academic faculty with cache invalidation
+    addAcademicDepartment: builder.mutation({
+      query: (data) => ({
+        url: "/academic-departments/create-academic-department",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Department" as any], // Invalidate "Faculty" tag when this mutation is called
+    }),
   }),
 });
 
@@ -72,4 +95,6 @@ export const {
   useAddAcademicSemesterMutation,
   useGetAcademicFacultyQuery,
   useAddAcademicFacultyMutation,
+  useGetAcademicDepartmentQuery,
+  useAddAcademicDepartmentMutation,
 } = academicManagementApi;

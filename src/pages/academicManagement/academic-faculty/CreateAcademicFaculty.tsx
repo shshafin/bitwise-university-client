@@ -1,4 +1,4 @@
-import { Button, Col, Card, Row } from "antd";
+import { Button, Col, Card, Row, Divider, Typography } from "antd";
 import PHForm from "../../../components/form/PHForm";
 import { useAddAcademicFacultyMutation } from "../../../redux/features/admin/academicManagement.api";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,6 +7,10 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import PHSelect from "../../../components/form/PHSelect";
 import { facultyNames } from "../../../constants/facultyNames";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import PHInput from "../../../components/form/PHInput";
+
+const { Text } = Typography;
 
 const CreateAcademicFaculty = () => {
   const [addAcademicFaculty] = useAddAcademicFacultyMutation();
@@ -15,39 +19,40 @@ const CreateAcademicFaculty = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const toastId = toast.loading("Creating...");
 
-    // Log the form data to debug
-    console.log("Form Data:", data);
-
-    // Ensure the 'name' field is properly selected and mapped
-    const name = facultyNames.find(
-      (faculty) => faculty.value === data?.name
-    )?.label;
-
     const facultyData = {
-      name,
+      name:
+        data.newFacultyName ||
+        facultyNames.find((faculty) => faculty.value === data?.name)?.label,
     };
+
     if (!facultyData.name) {
-      toast.error("Please select a valid faculty.", { id: toastId });
+      toast.error("Please select a valid faculty or enter a new one.", {
+        id: toastId,
+      });
       return;
     }
 
     try {
-      // Add faculty through the API call
       const res = await addAcademicFaculty(facultyData);
 
-      // Handle error response
-      if ("error" in res) {
+      if ("data" in res) {
+        toast.success(res.data?.message || "Faculty created successfully.", {
+          id: toastId,
+        });
+      } else if ("error" in res) {
+        const error = res.error as FetchBaseQueryError;
         const errorMessage =
-          res.error?.data?.message || "Failed to create faculty.";
-        toast.error(errorMessage, { id: toastId });
-        return;
-      }
+          "data" in error
+            ? (error.data as { message: string }).message
+            : "Failed to create faculty.";
 
-      // Success response
-      toast.success(res.data?.message || "Faculty created successfully.", {
-        id: toastId,
-      });
-    } catch (error: any) {
+        toast.error(errorMessage, { id: toastId });
+      } else {
+        toast.error("Unexpected error occurred. Please try again.", {
+          id: toastId,
+        });
+      }
+    } catch (error) {
       console.error("Unexpected error:", error);
       toast.error("An unexpected error occurred. Please try again.", {
         id: toastId,
@@ -75,6 +80,20 @@ const CreateAcademicFaculty = () => {
               label="Select Faculty:"
               name="name" // This binds to 'name' field in form data
               options={facultyNames}
+            />
+
+            {/* OR Divider */}
+            <Divider
+              orientation="center"
+              style={{ color: "#999" }}>
+              <Text type="secondary">OR</Text>
+            </Divider>
+
+            {/* Faculty Text Input */}
+            <PHInput
+              type="text"
+              label="Create New Faculty:"
+              name="newFacultyName"
             />
 
             {/* Submit Button */}
