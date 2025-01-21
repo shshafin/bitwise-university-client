@@ -13,15 +13,15 @@ import { useAddStudentMutation } from "../../../redux/features/admin/userManagem
 
 const studentDefaultValues = {
   name: {
-    firstName: "I am ",
-    middleName: "Student",
-    lastName: "No. 1",
+    firstName: "Student ",
+    middleName: "",
+    lastName: "4",
   },
   gender: "male",
 
   bloogGroup: "A+",
 
-  email: "student123@gmail.com",
+  email: "student4@gmail.com",
   contactNo: "1235678",
   emergencyContactNo: "987-654-3210",
   presentAddress: "123 Main St, Cityville",

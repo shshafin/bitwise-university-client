@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TQueryParam, TResponseRedux } from "../../../types";
 import {
   TAcademicDepartment,
   TAcademicFaculty,
   TAcademicSemester,
-} from "../../../types/academicManagement.type";
+  TQueryParam,
+  TResponseRedux,
+} from "../../../types";
+
 import { baseApi } from "../../api/baseApi";
 
 const academicManagementApi = baseApi.injectEndpoints({
