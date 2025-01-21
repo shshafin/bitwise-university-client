@@ -21,6 +21,7 @@ const PHInput = ({ type, name, label, placeholder }: TInputProps) => {
               type={type}
               placeholder={placeholder}
               id={name}
+              size="large"
             />
             {error && (
               <div style={{ marginTop: "5px", color: "#f5222d" }}>

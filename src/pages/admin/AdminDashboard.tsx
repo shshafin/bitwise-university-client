@@ -45,22 +45,28 @@ const AdminDashboard = () => {
         Admin Dashboard
       </h1>
 
-      <Row gutter={16}>
-        <Col span={8}>
+      <Row gutter={24}>
+        <Col
+          span={24}
+          md={{ span: 8 }}>
           <CardUi
             title="Academic Semesters"
             data={semesterData?.data?.length || 0}
             loading={semesterLoading}
           />
         </Col>
-        <Col span={8}>
+        <Col
+          span={24}
+          md={{ span: 8 }}>
           <CardUi
             title="Academic Faculties"
             data={facultyData?.data?.length || 0}
             loading={facultyLoading}
           />
         </Col>
-        <Col span={8}>
+        <Col
+          span={24}
+          md={{ span: 8 }}>
           <CardUi
             title="Academic Departments"
             data={departmentData?.data?.length || 0}

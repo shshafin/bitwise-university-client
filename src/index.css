@@ -3,3 +3,28 @@
   margin: 0;
   padding: 0;
 }
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 8px; /* Height of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #001529; /* Scrollbar thumb color */
+  border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color when hovering */
+}
+
+::-webkit-scrollbar-track {
+  background: #001529ce; /* Background of the scrollbar track */
+}
