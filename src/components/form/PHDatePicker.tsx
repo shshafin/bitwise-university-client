@@ -4,12 +4,14 @@ import { Controller } from "react-hook-form";
 type TPHDatePickerProps = {
   label: string;
   name: string;
+  defaultValues?: Date | Date[] | null | string; // Ensure defaultValues is passed or undefined;
 };
 
-const PHDatePicker = ({ label, name }: TPHDatePickerProps) => {
+const PHDatePicker = ({ label, name, defaultValues }: TPHDatePickerProps) => {
   return (
     <Controller
       name={name}
+      defaultValue={defaultValues}
       render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
           <DatePicker

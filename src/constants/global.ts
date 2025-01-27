@@ -26,6 +26,12 @@ export const bloodGroupNames = [
   "O-",
 ];
 
+export const semesterStatus = [
+  { value: "UPCOMING", label: "Upcoming" },
+  { value: "ONGOING", label: "Ongoing" },
+  { value: "ENDED", label: "Ended" },
+];
+
 export const monthOptions = monthNames.map((item) => ({
   value: item,
   label: item,

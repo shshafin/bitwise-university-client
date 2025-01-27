@@ -4,7 +4,44 @@ import {
   TAcademicSemester,
 } from "./academicManagement.type";
 
-export interface TStudent {
+export type TAdmin = {
+  _id: string;
+  id: string;
+  user: TUser;
+  designation: string;
+  name: TName;
+  gender: string;
+  dateOfBirth: string;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  bloodGroup: string;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImg: string;
+  isDeleted: boolean;
+  fullName: string;
+};
+export type TFaculty = {
+  _id: string;
+  id: string;
+  user: TUser;
+  designation: string;
+  name: TName;
+  gender: string;
+  dateOfBirth: string;
+  email: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  bloodGroup: string;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImg: string;
+  isDeleted: boolean;
+  academicDepartment: TAcademicDepartment;
+  fullName: string;
+};
+export type TStudent = {
   _id: string;
   id: string;
   user: TUser;
@@ -14,7 +51,7 @@ export interface TStudent {
   email: string;
   contactNo: string;
   emergencyContactNo: string;
-  bloogGroup: string;
+  bloodGroup: string;
   presentAddress: string;
   permanentAddress: string;
   guardian: TGuardian;
@@ -25,7 +62,7 @@ export interface TStudent {
   academicDepartment: TAcademicDepartment;
   academicFaculty: TAcademicFaculty;
   fullName: string;
-}
+};
 
 export type TUser = {
   _id: string;

@@ -6,16 +6,18 @@ import { adminPaths } from "./admin.routes";
 import { routesGenerator } from "../utils/routesGenerator";
 import { facultyPaths } from "./faculty.routes";
 import { studentPaths } from "./student.routes";
+import { TUserPath } from "../types";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App></App>,
   },
+
   {
     path: "/admin",
     element: <App></App>,
-    children: routesGenerator(adminPaths),
+    children: routesGenerator(adminPaths as TUserPath[]),
   },
   {
     path: "/faculty",

@@ -3,11 +3,14 @@ import {
   Space,
   Table,
   TableColumnsType,
-  TableProps,
   Image,
+  Pagination,
+  TableProps,
 } from "antd";
-import { useGetStudentsQuery } from "../../../redux/features/admin/userManagement.api";
-import { TStudent } from "../../../types";
+import { useGetStudentsQuery } from "../../../../redux/features/admin/userManagement.api";
+import { TQueryParam, TStudent } from "../../../../types";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export type TTableData = Pick<
   TStudent,
@@ -15,7 +18,16 @@ export type TTableData = Pick<
 >;
 
 const StudentData = () => {
-  const { data: studentData, isFetching } = useGetStudentsQuery(undefined);
+  //  user block
+
+  const [params, setParams] = useState<TQueryParam[]>([]);
+  const [page, setPage] = useState(1);
+  const { data: studentData, isFetching } = useGetStudentsQuery([
+    { name: "page", value: page },
+    { name: "sort", value: "id" },
+    { name: "limit", value: 5 },
+    ...params,
+  ]);
 
   const tableData = studentData?.data?.map(
     ({ _id, fullName, id, email, contactNo, profileImg }) => ({
@@ -27,6 +39,8 @@ const StudentData = () => {
       profileImg,
     })
   );
+
+  const metaData = studentData?.meta;
 
   const columns: TableColumnsType<TTableData> = [
     {
@@ -65,15 +79,21 @@ const StudentData = () => {
     {
       title: "Action",
       key: "action",
-      render: () => {
+      render: (item) => {
         return (
-          <Space>
-            <Button>Update</Button>
+          <Space style={{ width: "1%" }}>
+            <Link to={`/admin/students-data/${item?.key}/update`}>
+              <Button>Update</Button>
+            </Link>
+
             <Button>Block</Button>
-            <Button>Details</Button>
+            <Link to={`/admin/students-data/${item?.key}`}>
+              <Button>Details</Button>
+            </Link>
           </Space>
         );
       },
+      width: "1%",
     },
   ];
 
@@ -83,11 +103,19 @@ const StudentData = () => {
     _sorter,
     extra
   ) => {
-    console.log(_pagination, filters, _sorter, extra);
+    if (extra.action === "filter") {
+      const queryParams: TQueryParam[] = [];
+
+      filters.name?.forEach((item) =>
+        queryParams.push({ name: "name", value: item })
+      );
+
+      setParams(queryParams);
+    }
   };
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h1 style={{ textAlign: "center", marginBottom: "40px" }}>
         Student Data
       </h1>
@@ -95,10 +123,25 @@ const StudentData = () => {
       <Table<TTableData>
         columns={columns}
         dataSource={tableData}
-        onChange={onChange}
         showSorterTooltip={{ target: "sorter-icon" }}
         loading={isFetching}
+        pagination={false}
+        onChange={onChange}
+        style={{ marginBottom: "20px" }}
       />
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "20px",
+        }}>
+        <Pagination
+          pageSize={metaData?.limit}
+          total={metaData?.total}
+          onChange={(value) => setPage(value)}
+        />
+      </div>
     </div>
   );
 };

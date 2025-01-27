@@ -6,6 +6,7 @@ import { studentPaths } from "../../routes/student.routes";
 import { useAppSelector } from "../../redux/hooks";
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 import { Link } from "react-router-dom";
+import { TUserPath } from "../../types";
 const { Sider } = Layout;
 
 const Sidebar = () => {
@@ -23,7 +24,10 @@ const Sidebar = () => {
       sidebarItems = sidebarItemGenerator(facultyPaths, ROLE.FACULTY);
       break;
     case ROLE.ADMIN:
-      sidebarItems = sidebarItemGenerator(adminPaths, ROLE.ADMIN);
+      sidebarItems = sidebarItemGenerator(
+        adminPaths as TUserPath[],
+        ROLE.ADMIN
+      );
       break;
     case ROLE.STUDENT:
       sidebarItems = sidebarItemGenerator(studentPaths, ROLE.STUDENT);
